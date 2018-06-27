@@ -1,0 +1,50 @@
+version: 2
+jobs:
+  build-slack-bot:
+    machine: true
+    steps:
+      - checkout
+      - run: ./.circleci/setup-rngd.sh
+      - run: cd examples/slack-bot && ./docker-build.sh
+
+  build-python-example-app:
+    machine: true
+    steps:
+      - checkout
+      - run: ./.circleci/setup-rngd.sh
+      - run: cd examples/python-example-app && ./docker-build.sh
+
+  build-event-proxy-app:
+    machine: true
+    steps:
+      - checkout
+      - run: ./.circleci/setup-rngd.sh
+      - run: cd examples/event-proxy-app && ./docker-build.sh
+
+  build-android-sample-app:
+    machine: true
+    steps:
+      - checkout
+      - run: ./.circleci/setup-rngd.sh
+      - run: cd examples/android-sample-app && ./docker-build.sh
+
+  success:
+    machine: true
+    steps:
+      - run: echo "Success!"
+
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-slack-bot
+      - build-python-example-app
+      - build-event-proxy-app
+      - build-android-sample-app
+      - success:
+          requires:
+            - build-slack-bot
+            - build-python-example-app
+            - build-event-proxy-app
+            - build-android-sample-app
