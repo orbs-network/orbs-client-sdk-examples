@@ -1,3 +1,3 @@
-requests
 redis
 slackclient
+git+https://github.com/orbs-network/orbs-client-sdk-python@4ec6393d7fe4eba7df5508cd896717a96ea4e858
