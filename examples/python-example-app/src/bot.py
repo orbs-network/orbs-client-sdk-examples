@@ -6,7 +6,6 @@ from datetime import datetime
 from slackclient import SlackClient
 
 from os import sys, path
-sys.path.append(path.abspath(path.dirname(path.abspath(__file__)) + "../../../../crypto-sdk-python"))
 
 import orbs_client
 from orbs_client import HttpClient, Contract

@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-pip install -r requirements.txt
+pip install --verbose -r requirements.txt
