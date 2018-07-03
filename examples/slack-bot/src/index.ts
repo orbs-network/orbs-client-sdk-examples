@@ -15,11 +15,12 @@ interface Config {
 const {
   SLACK_TOKEN,
   ORBS_API_ENDPOINT,
-  TRANSACTION_TIMEOUT
+  TRANSACTION_TIMEOUT,
 } = process.env;
 
 const PULL_REQUEST_AWARD = 100;
 const VIRTUAL_CHAIN_ID = "640ed3";
+const NETWORK_ID = process.env.NETWORK_ID || Address.TEST_NETWORK_ID;
 
 const config = {
   endpoint: ORBS_API_ENDPOINT,
@@ -30,7 +31,7 @@ const config = {
 function generateAddress(): [Address, ED25519Key] {
 
   const keyPair = new ED25519Key();
-  const address = new Address(keyPair.publicKey, VIRTUAL_CHAIN_ID, Address.TEST_NETWORK_ID);
+  const address = new Address(keyPair.publicKey, VIRTUAL_CHAIN_ID, NETWORK_ID);
 
   return [address, keyPair];
 }
@@ -42,7 +43,7 @@ async function getAccount(username: string, config: Config): Promise<FooBarAccou
   let keyPair;
 
   if (data) {
-    address = new Address(data.publicKey, VIRTUAL_CHAIN_ID, Address.TEST_NETWORK_ID);
+    address = new Address(data.publicKey, VIRTUAL_CHAIN_ID, NETWORK_ID);
     keyPair = new ED25519Key(data.publicKey, data.privateKey);
   } else {
     [address, keyPair] = generateAddress();
